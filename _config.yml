@@ -73,7 +73,7 @@ netease_comment: false
 # Sidebar settings
 sidebar: true # whether or not using Sidebar.
 sidebar-about-description: "Admin??? Programmer??? Accordionist? <br>"
-sidebar-avatar: https://github.com/ptmp13/ptmp13.github.io/blob/master/hatchenhock.png # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: https://github.com/ptmp13.png # use absolute URL, seeing it's used in both `/` and `/about/`
 
 # Featured Tags
 featured-tags: true # whether or not using Feature-Tags
