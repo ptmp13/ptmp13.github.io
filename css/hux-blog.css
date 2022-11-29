@@ -1102,12 +1102,12 @@ samp {
   }
 }
 .intro-header {
-  background: no-repeat center;
+  background: no-repeat center center;
   background-color: #a3a3a3;
   background-attachment: scroll;
   -webkit-background-size: cover;
   -moz-background-size: cover;
-  background-size: cover;
+  background-size: contain;
   -o-background-size: cover;
   margin-bottom: 0px;
   /* 0 on mobile, modify by Hux */
