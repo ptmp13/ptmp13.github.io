@@ -1102,7 +1102,7 @@ samp {
   }
 }
 .intro-header {
-  background: no-repeat center center;
+  /*background: no-repeat center center;*/
   background-color: #a3a3a3;
   background-attachment: scroll;
   -webkit-background-size: cover;
