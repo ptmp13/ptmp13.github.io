@@ -6,7 +6,10 @@ date:       2022-11-30 21:15:00
 author:     "ptmp13"
 catalog: true
 tags:
-    - elasticsearch, ELK, kibana, curl, datastream
+    - elasticsearch
+    - ELK 
+    - kibana
+    - bash
 ---
 
 Ok... we have ELK with some nodes.
