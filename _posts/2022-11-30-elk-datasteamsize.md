@@ -24,7 +24,12 @@ Next command shows datastreams sorted by ascending. (output disk usage in Gb)
 ```bash
 export elasticURL=https://olol.elasticsearch.com:9200
 export elasticCRED=elastic:passwd
-curl -N -k -XGET "${elasticURL}/_cat/shards?h=i,sto,n&bytes=b" -u ${elasticCRED}|tac|grep "\.ds-"|gawk -v OFMT='%.5f' '{sub(/-[^-]*-[^-]*$/,"",$1); a[$1]+=$2;} END {for(i in a){print sprintf("%.15f", a[i]/1024/1024/1024/1024*1e3),i }}'|sort -k 1 -n
+curl -N -k -XGET "${elasticURL}/_cat/shards?h=i,sto,n&bytes=b" \
+-u ${elasticCRED}|tac|grep "\.ds-"|\
+gawk -v OFMT='%.5f' \
+'{sub(/-[^-]*-[^-]*$/,"",$1); a[$1]+=$2;} \
+END {for(i in a){print sprintf("%.15f", a[i]/1024/1024/1024/1024*1e3),i }}'|\
+sort -k 1 -n
 ```
 
 
@@ -39,11 +44,17 @@ grep ${elasticNode}
 export elasticURL=https://olol.elasticsearch.com:9200
 export elasticCRED=elastic:passwd
 export elasticNode=data-1
-curl -N -k -XGET "${elasticURL}/_cat/shards?h=i,sto,n&bytes=b' -u ${elasticCRED}|tac|grep ${elasticNode}|grep "\.ds-"|gawk -v OFMT='%.5f' '{sub(/-[^-]*-[^-]*$/,"",$1); a[$1]+=$2;} END {for(i in a){print sprintf("%.15f", a[i]/1024/1024/1024*1e3),i }}'|sort -k 1 -n
+curl -N -k -XGET "${elasticURL}/_cat/shards?h=i,sto,n&bytes=b' \
+-u ${elasticCRED}|tac|grep ${elasticNode}|grep "\.ds-"|\
+gawk -v OFMT='%.5f' \
+'{sub(/-[^-]*-[^-]*$/,"",$1); a[$1]+=$2;} \
+END {for(i in a){print sprintf("%.15f", a[i]/1024/1024/1024*1e3),i }}'|\
+sort -k 1 -n
 ````
 
 
-P.S After you find some datasteam you can use API for check fields etc...
+
+#### P.S After you find some datasteam you can use API for check fields etc...
 
 ```bash
 curl -XPOST ${elasticURL}/my_datastream/_disk_usage?run_expensive_tasks=true
