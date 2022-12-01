@@ -59,4 +59,4 @@ sort -k 1 -n
 ```bash
 curl -XPOST ${elasticURL}/my_datastream/_disk_usage?run_expensive_tasks=true
 ```
-https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-disk-usage.html
+[elasticsearch docs](https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-disk-usage.html)
