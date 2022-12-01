@@ -12,7 +12,7 @@ tags:
 ---
 
 Its realy stange... but may be you need connect from console to jmx.
-#### Java running with following command:
+#### Java application running with following command:
 
 ```bash
 java -Xms250m -Xmx250m -XX:MaxMetaspaceSize=100m -jar -Dcom.sun.management.jmxremote \
@@ -22,7 +22,7 @@ java -Xms250m -Xmx250m -XX:MaxMetaspaceSize=100m -jar -Dcom.sun.management.jmxre
 testjmx.jar
 ````
 
-Download [jmxterm](https://github.com/jiaqi/jmxterm)
+#### Download [jmxterm](https://github.com/jiaqi/jmxterm)
 
 #### Connect to jmx and get Uptime
 ```bash
