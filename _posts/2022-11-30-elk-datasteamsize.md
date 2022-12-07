@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Elasticsearch determine datastream size..."
+title:      "Elasticsearch Calculate the Storage Size of Data streams..."
 subtitle:   " \"...let's find it using awk grep sed...\""
 date:       2022-11-30 21:15:00
 author:     "ptmp13"
