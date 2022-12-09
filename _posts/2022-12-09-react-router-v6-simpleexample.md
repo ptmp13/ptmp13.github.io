@@ -48,17 +48,17 @@ import { Link } from 'react-router-dom';
 const Header = () => {
     return (
         <div>
-                <p>Header<\/p>
-        <\/div>
+                <p>Header</p>
+        </div>
     )
 };
 
 const Homepage = () => {
     return (
         <div>
-                <h1>Homepage <\/h1>
-                <Link to='/about'>Go to Aboutpage<\/Link>
-        <\/div>
+                <h1>Homepage </h1>
+                <Link to='/about'>Go to Aboutpage</Link>
+        </div>
     )
 };
 
@@ -66,8 +66,8 @@ const Aboutpage = () => {
     return (
         <div>
                 <h1>Aboutpage<\/h1>
-                <Link to='\/'>Go to Homepage<\/Link>
-        <\/div>
+                <Link to='/'>Go to Homepage</Link>
+        </div>
     )
 };
 export {Header, Homepage, Aboutpage } ;
