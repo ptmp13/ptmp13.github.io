@@ -11,6 +11,7 @@ tags:
 ---
 
 Ok very simple example with react router.
+
 ```bash
 npx create-react-app testrq-router && cd $_ && yarn add react-router-dom
 ```
