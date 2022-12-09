@@ -75,7 +75,7 @@ export {Header, Homepage, Aboutpage } ;
 
 
 base on 
-https://www.pluralsight.com/guides/understanding-links-in-reactjs?__cf_chl_tk=kGurwoUEUYMaJKzf.DRnlw2Vo5qdPzwqn4FslqtFs2I-1670573139-0-gaNycGzNCKU
+[understanding-links-in-reactjs](https://www.pluralsight.com/guides/understanding-links-in-reactjs?__cf_chl_tk=kGurwoUEUYMaJKzf.DRnlw2Vo5qdPzwqn4FslqtFs2I-1670573139-0-gaNycGzNCKU)
 mod to react-route v6
 
 Header Component already placed as not rerender component.
