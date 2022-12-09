@@ -32,8 +32,8 @@ root.render(
     <Routes>
       <Route path="/" element={<Homepage />} />
       <Route path="/about" element={<Aboutpage />} />
-    <\/Routes>
-  <\/Router>
+    </Routes>
+  </Router>
 );
 ```
 
