@@ -102,12 +102,12 @@ Change: 2022-12-14 19:59:29.887846821 +0300
 
 We can use ss for check:
 
->lastsnd:<lastsnd>
-    how long time since the last packet sent, the unit is millisecond
-lastrcv:<lastrcv>
-    how long time since the last packet received, the unit is millisecond
-lastack:<lastack>
-    how long time since the last ack received, the unit is millisecond
+>lastsnd:<lastsnd>  
+    how long time since the last packet sent, the unit is millisecond  
+lastrcv:<lastrcv>  
+    how long time since the last packet received, the unit is millisecond  
+lastack:<lastack>  
+    how long time since the last ack received, the unit is millisecond  
 
 ```bash
 ss -Hnapei -O -T dst :22
