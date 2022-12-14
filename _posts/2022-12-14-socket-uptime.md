@@ -84,7 +84,7 @@ But i know that problem occured two hours ago. And if we closer look at the scri
 ```bash
  -printf %T@ 
 ```
-its mean
+it means  
 _File's last modification time in the format specified by k, which is the same as for %A._
 _@      seconds since Jan. 1, 1970, 00:00 GMT, with fractional part._
 
