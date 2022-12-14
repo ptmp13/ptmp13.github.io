@@ -85,8 +85,8 @@ But i know that problem occured two hours ago. And if we closer look at the scri
  -printf %T@ 
 ```
 it means  
-_File's last modification time in the format specified by k, which is the same as for %A._
-_@      seconds since Jan. 1, 1970, 00:00 GMT, with fractional part._
+%T - _File's last modification time.
+_@ seconds since Jan. 1, 1970, 00:00 GMT, with fractional part._
 
 But we need know when socket created not _modification time_... for example i start ssh connection at 18:34:00
 ```bash
