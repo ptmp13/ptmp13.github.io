@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Linux socket uptime..."
-subtitle:   " \"to be continue...\""
+subtitle:   " \"to be continued...\""
 date:       2022-12-14 14:49:00
 author:     "ptmp13"
 catalog: true
