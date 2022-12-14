@@ -113,6 +113,11 @@ lastack:<lastack>
 ss -Hnapei -O -T dst :22
 ```
 
+And we can see thread life time
+```bash
+ps -eo pid,tid,class,rtprio,ni,pri,psr,pcpu,stat,wchan:14,comm,etime|grep 16953
+```
+
 After restart tomcat all sockets go to TIME_WAIT for
 ```bash
 cat /proc/sys/net/ipv4/tcp_fin_timeout
