@@ -77,7 +77,7 @@ Run:
 ```
 
 Ok we see something like this:
->total connections for pid 31096: 1
+>total connections for pid 31096: 1  
 10.64.130.81:22 Wed Dec 14 18:00:16 MSK 2022 ( 184.02 s ago)  
 
 But i know that problem occured two hours ago. And if we closer look at the script:
