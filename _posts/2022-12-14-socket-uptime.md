@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Linux socket uptime..."
-subtitle:   " \"to be continue...\""
+subtitle:   " \"to be continued...\""
 date:       2022-12-14 14:49:00
 author:     "ptmp13"
 catalog: true
@@ -84,11 +84,11 @@ But i know that problem occured two hours ago. And if we closer look at the scri
 ```bash
  -printf %T@ 
 ```
-its mean
-_File's last modification time in the format specified by k, which is the same as for %A._
-_@      seconds since Jan. 1, 1970, 00:00 GMT, with fractional part._
+it means  
+%T - _File's last modification time._
+@ - _seconds since Jan. 1, 1970, 00:00 GMT, with fractional part._
 
-But we need know when socket created not _modification time_... for example i start ssh connection at 18:34:00
+But we need to know when socket created, not _modification time_... for example i start ssh connection at 18:34:00
 ```bash
 > stat /proc/11835/fd/3
   File: /proc/11835/fd/3 -> socket:[34517616]
@@ -103,9 +103,9 @@ Change: 2022-12-14 19:59:29.887846821 +0300
 We can use ss for check:
 
 >lastsnd:<lastsnd>  
-    how long time since the last packet sent, the unit is millisecond  
+    how long time since- the last packet sent, the unit is millisecond.    
 lastrcv:<lastrcv>  
-    how long time since the last packet received, the unit is millisecond  
+    how long time since the last packet received, the unit is millisecond.    
 lastack:<lastack>  
     how long time since the last ack received, the unit is millisecond  
 
@@ -123,7 +123,7 @@ After restart tomcat all sockets go to TIME_WAIT for
 cat /proc/sys/net/ipv4/tcp_fin_timeout
 ```
 
-to be continue...
+to be continued...
 
 Links:
 [https://superuser.com/questions/565991/how-to-determine-the-socket-connection-up-time-on-linux](https://superuser.com/questions/565991/how-to-determine-the-socket-connection-up-time-on-linux)
