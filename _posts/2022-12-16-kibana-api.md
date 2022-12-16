@@ -24,5 +24,11 @@ Export dashboard by id include all subobjects (how to find id in previus step).
 curl -XGET "http://ololol.local/prod/s/space/api/kibana/dashboards/export?dashboard=ea092c10-80f3-11eb-8724-af9cad60a55b" -L -u elastic:OOLOL > Mydash.json
 ```
 
+### Import Dashboard
+
+for import dashboard to space:
+```bash
+curl -f -XPOST -u elastic:OLOLOL -H 'Content-Type: application/json' -H 'kbn-xsrf: this_is_required_header' 'http://ollool.local/prod/s/space/api/kibana/dashboards/import' -T ./atatat.json
+```
 
 ![to be continued](../img/in-post/ELK/tobecontinued.jpg "to be continued...").
