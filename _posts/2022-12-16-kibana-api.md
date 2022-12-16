@@ -21,7 +21,7 @@ curl -XGET "http://ololol.local/prod/s/space/api/saved_objects/_find?type=dashbo
 ### Export dashboard 
 Export dashboard by id include all subobjects (how to find id in previus step).
 ```bash
-curl -XGET "http://ololol.local/prod/s/space/api/kibana/dashboards/export?dashboard=ea092c10-80f3-11eb-8724-af9cad60a55b" -L -u elastic:app_log_ELK > Mydash.json
+curl -XGET "http://ololol.local/prod/s/space/api/kibana/dashboards/export?dashboard=ea092c10-80f3-11eb-8724-af9cad60a55b" -L -u elastic:OOLOL > Mydash.json
 ```
 
 
