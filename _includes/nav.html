@@ -1,13 +1,12 @@
 <!-- Navigation -->
-<!-- {% if page.nav-style == "invert" or page.header-style == "text" %} -->
-{% if page.header-style == "text" %}
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+{% if page.nav-style == "invert" or page.header-style == "text" %}
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
     {% else %}
     <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
         {% endif %}
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
+            <div class="navbar-header page-scroll is-visible">
                 <button type="button" class="navbar-toggle">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>

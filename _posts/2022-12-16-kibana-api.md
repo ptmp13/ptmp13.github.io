@@ -51,17 +51,28 @@ curl -XGET http://ololol.local/elasticsearch/_security/user
 -u elastic:OLOLOL | jq -c '.[] | select(.roles[]=="MYROLE") | .username'
 ```
 
-Add role if its not exist:
+### Add role if its not exist
+
+
+Check script before use it=)))
 ```bash
 #!/bin/bash
-addroles=["clientprofile","campaign","price"]
+export ELKuser="elastic"
+export ELKpass="OLOLOL"
+export ELKURL="http://lolo.local/elasticsearch"
 # Get users with role MYROLE and save to file listusers.txt
-curl -XGET http://ololol.local/elasticsearch/_security/user 
--u elastic:OLOLOL | jq -c '.[] | select(.roles[]=="MYROLE") | .username' > listusers.txt
+curl -XGET ${ELKURL}/_security/user -u ${ELKuser}:${ELKpass} | jq -c '.[] | select(.roles[]=="MYROLE")' > listusers.txt
 
 while read line
 do
-    echo ${line} | jq ' .[] | '
+        updateuser=$(echo $line | jq -c '.roles += ["TESTROLE","TESTROLE2","TESTROLE3"] | .roles')
+        username=$(echo $line | jq -c '.roles += ["TESTROLE","TESTROLE2","TESTROLE3"] | .username'|tr -d \")
+        jqroles=$(echo "{ \"roles\": $updateuser }")
+        echo "user: $username"
+        echo "{ \"roles\": $updateuser }"
+        curl -H "Content-Type: application/json" -XPOST -u ${ELKuser}:${ELKpass} "${ELKURL}/_security/user/${username}" -d "$jqroles"
+
+done <listusers.txt
 
 ```
 
