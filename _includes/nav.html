@@ -52,22 +52,22 @@
         var $navbar = document.querySelector('#huxblog_navbar');
         var $collapse = document.querySelector('.navbar-collapse');
 
-        var __HuxNav__ = {
-            close: function () {
-                $navbar.className = " ";
-                // wait until animation end.
-                setTimeout(function () {
-                    // prevent frequently toggle
-                    if ($navbar.className.indexOf('in') < 0) {
-                        $collapse.style.height = "300px"
-                    }
-                }, 400)
-            },
-            open: function () {
-                $collapse.style.height = "auto"
-                $navbar.className += " in";
-            }
-        }
+        // var __HuxNav__ = {
+        //     close: function () {
+        //         $navbar.className = " ";
+        //         // wait until animation end.
+        //         setTimeout(function () {
+        //             // prevent frequently toggle
+        //             if ($navbar.className.indexOf('in') < 0) {
+        //                 $collapse.style.height = "300px"
+        //             }
+        //         }, 400)
+        //     },
+        //     open: function () {
+        //         $collapse.style.height = "auto"
+        //         $navbar.className += " in";
+        //     }
+        // }
 
         // Bind Event
         $toggle.addEventListener('click', function (e) {
