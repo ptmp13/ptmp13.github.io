@@ -1,9 +1,9 @@
 <!-- Navigation -->
-<!-- {% if page.nav-style == "invert" or page.header-style == "text" %}
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-    {% else %} -->
+{% if page.nav-style == "invert" or page.header-style == "text" %}
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top invert">
+    {% else %}
     <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-        <!-- {% endif %} -->
+        {% endif %}
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header page-scroll">
@@ -19,7 +19,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div id="huxblog_navbar">
                 <div class="navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right is-visible">
+                    <ul class="nav navbar-nav navbar-right">
                         <li>
                             <a href="{{ site.baseurl }}/">Home</a>
                         </li>
@@ -52,22 +52,22 @@
         var $navbar = document.querySelector('#huxblog_navbar');
         var $collapse = document.querySelector('.navbar-collapse');
 
-        // var __HuxNav__ = {
-        //     close: function () {
-        //         $navbar.className = " ";
-        //         // wait until animation end.
-        //         setTimeout(function () {
-        //             // prevent frequently toggle
-        //             if ($navbar.className.indexOf('in') < 0) {
-        //                 $collapse.style.height = "300px"
-        //             }
-        //         }, 400)
-        //     },
-        //     open: function () {
-        //         $collapse.style.height = "auto"
-        //         $navbar.className += " in";
-        //     }
-        // }
+        var __HuxNav__ = {
+            close: function () {
+                $navbar.className = " ";
+                // wait until animation end.
+                setTimeout(function () {
+                    // prevent frequently toggle
+                    if ($navbar.className.indexOf('in') < 0) {
+                        $collapse.style.height = "0px"
+                    }
+                }, 400)
+            },
+            open: function () {
+                $collapse.style.height = "auto"
+                $navbar.className += " in";
+            }
+        }
 
         // Bind Event
         $toggle.addEventListener('click', function (e) {
