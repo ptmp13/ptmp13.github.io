@@ -57,9 +57,9 @@ jQuery(document).ready(function($) {
                     $catalog = $('.side-catalog');
 
                 //check if user is scrolling up by mouse or keyborad
-                if (currentTop < this.previousTop) {
+                if (currentTop < this.previousTop || currentTop == 0) {
                     //if scrolling up...
-                    if ($('.navbar-custom').hasClass('is-fixed')) {
+                    if (currentTop >= 0 && $('.navbar-custom').hasClass('is-fixed')) {
                         $('.navbar-custom').addClass('is-visible');
                     } else {
                         $('.navbar-custom').removeClass('is-visible is-fixed');
@@ -69,16 +69,16 @@ jQuery(document).ready(function($) {
                     $('.navbar-custom').removeClass('is-visible');
                     if (currentTop > headerHeight && !$('.navbar-custom').hasClass('is-fixed')) $('.navbar-custom').addClass('is-fixed');
                 }
-                //this.previousTop = currentTop;
+                this.previousTop = currentTop;
 
 
                 //adjust the appearance of side-catalog
-                // $catalog.show()
-                // if (currentTop > (bannerHeight + 41)) {
-                //     $catalog.addClass('fixed')
-                // } else {
-                //     $catalog.removeClass('fixed')
-                // }
+                $catalog.show()
+                if (currentTop > (bannerHeight + 41)) {
+                    $catalog.addClass('fixed')
+                } else {
+                    $catalog.removeClass('fixed')
+                }
             });
     }
 });
