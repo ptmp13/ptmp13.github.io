@@ -59,7 +59,7 @@ jQuery(document).ready(function($) {
                 //check if user is scrolling up by mouse or keyborad
                 if (currentTop < this.previousTop) {
                     //if scrolling up...
-                    if (currentTop >= 0 && $('.navbar-custom').hasClass('is-fixed')) {
+                    if (currentTop >= 300 && $('.navbar-custom').hasClass('is-fixed')) {
                         $('.navbar-custom').addClass('is-visible');
                     } else {
                         $('.navbar-custom').removeClass('is-visible is-fixed');
