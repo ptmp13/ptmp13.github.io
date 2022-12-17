@@ -76,4 +76,4 @@ done <listusers.txt
 
 ```
 
-![to be continued](../img/in-post/ELK/tobecontinued.jpg "to be continued...").
+![to be continued](img/in-post/ELK/tobecontinued.jpg "to be continued...").
