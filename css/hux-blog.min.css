@@ -776,6 +776,7 @@ body {
     color: #404040;
     overflow-x: hidden;
     text-rendering: auto;
+    margin-top: 61px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale
 }
