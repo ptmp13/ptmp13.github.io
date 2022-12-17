@@ -10,7 +10,7 @@ tags:
     - ELK
 ---
 
-Here some kibana commands for next time...
+# Here some kibana commands for next time...
 
 ### Find Dashboard  
 Find Dashboard id with title __MegaDashboard__ (output will be _id title_):  
@@ -48,9 +48,21 @@ curl -XGET http://ololol.local/elasticsearch/_security/user
 For only username:
 ```bash
 curl -XGET http://ololol.local/elasticsearch/_security/user 
--u elastic:OLOLOL | jq '.[] | select(.roles[]=="MYROLE") | .username'
+-u elastic:OLOLOL | jq -c '.[] | select(.roles[]=="MYROLE") | .username'
 ```
 
+Add role if its not exist:
+```bash
+#!/bin/bash
+addroles=["clientprofile","campaign","price"]
+# Get users with role MYROLE and save to file listusers.txt
+curl -XGET http://ololol.local/elasticsearch/_security/user 
+-u elastic:OLOLOL | jq -c '.[] | select(.roles[]=="MYROLE") | .username' > listusers.txt
 
+while read line
+do
+    echo ${line} | jq ' .[] | '
+
+```
 
 ![to be continued](../img/in-post/ELK/tobecontinued.jpg "to be continued...").
