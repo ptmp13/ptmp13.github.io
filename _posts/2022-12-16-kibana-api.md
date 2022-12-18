@@ -10,7 +10,7 @@ tags:
     - ELK
 ---
 
-# Here some kibana commands for next time...
+# Here some kibana commands for the next time...
 
 ### Find Dashboard  
 Find Dashboard id with title __MegaDashboard__ (output will be _id title_):  
