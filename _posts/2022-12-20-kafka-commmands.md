@@ -2,7 +2,7 @@
 layout:     post
 title:      "Kafka commands for the next time..."
 subtitle:   " \"to be continued...\""
-date:       2022-11-28 20:49:00
+date:       2022-12-20 16:49:00
 author:     "ptmp13"
 catalog: true
 tags:
