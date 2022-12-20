@@ -13,5 +13,5 @@ tags:
 
 ### List topics
 ```bash
-./kafka-topics.sh k --bootstrap-server applogstash.kafka.marathon.mesos.local:9092 --list
+./kafka-topics.sh k --bootstrap-server applogstash.kafka.local:9092 --list
 ```
