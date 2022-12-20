@@ -67,8 +67,8 @@ netease_comment: false
 # ba_track_id: [your track id]
 
 # Google Analytics
-#ga_track_id: "UA-250895197-1" # Format: UA-xxxxxx-xx
-#ga_domain: ptmp13.github.io
+ga_track_id: "UA-250895197-1" # Format: UA-xxxxxx-xx
+ga_domain: ptmp13.github.io
 
 # Sidebar settings
 sidebar: true # whether or not using Sidebar.
