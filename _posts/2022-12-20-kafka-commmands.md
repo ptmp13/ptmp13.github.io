@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Kafka commands for the next time..."
-subtitle:   " \"...\""
+subtitle:   " \"to be continued...\""
 date:       2022-11-28 20:49:00
 author:     "ptmp13"
 catalog: true
