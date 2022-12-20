@@ -55,7 +55,7 @@ This strange things from [theme](https://superuser.com/questions/565991/how-to-d
 find /proc/26700/fd -lname "socket:*" -printf "\n%AD %AT %p"|sort -k1.8n -k1.1nr -k1|more
 ```
 
-Script (for next time):
+Script (for the next time):
 ```bash
 #!/bin/bash
 PID=${1}

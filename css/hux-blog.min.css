@@ -776,6 +776,7 @@ body {
     color: #404040;
     overflow-x: hidden;
     text-rendering: auto;
+    margin-top: 61px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale
 }
@@ -1240,15 +1241,16 @@ samp {
     .navbar-custom.is-fixed {
         position: fixed;
         top: -61px;
-        background-color: rgba(255, 255, 255, .9);
-        border-bottom: 1px solid #f2f2f2;
+/*        background-color: rgba(68, 180, 216, 1);*/
+        background-image: url("../img/winter-header.png");;
+/*        border-bottom: 1px solid #f2f2f2;*/
         -webkit-transition: -webkit-transform .3s;
         -moz-transition: -moz-transform .3s;
         transition: transform .3s
     }
 
     .navbar-custom.is-fixed .navbar-brand {
-        color: #404040
+        color: #FFFFFF
     }
 
     .navbar-custom.is-fixed .navbar-brand:hover,
@@ -1257,7 +1259,7 @@ samp {
     }
 
     .navbar-custom.is-fixed .nav li a {
-        color: #404040
+        color: #FFFFFF
     }
 
     .navbar-custom.is-fixed .nav li a:hover,
