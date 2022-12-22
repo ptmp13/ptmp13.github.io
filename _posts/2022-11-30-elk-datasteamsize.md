@@ -55,7 +55,8 @@ END {for(i in a){print sprintf("%.15f", a[i]/1024/1024/1024*1e3),i }}'|\
 sort -k 1 -n
 ````
 
-
+Sometimes you must add grep -v "node3" after first grep
+its mean exclude __node3__, becouse when shard move from one node to another in query "__\_cat/shards__" we will see two nodes.
 
 #### P.S After you find some datasteam you can use API for check fields etc...
 
