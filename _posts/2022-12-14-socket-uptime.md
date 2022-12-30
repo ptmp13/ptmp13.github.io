@@ -129,6 +129,9 @@ Links:
 [https://superuser.com/questions/565991/how-to-determine-the-socket-connection-up-time-on-linux](https://superuser.com/questions/565991/how-to-determine-the-socket-connection-up-time-on-linux)
 
 P.S
+```bash
 ss -nap dst :22
 --info
 -K 
+ss -at '( dport = :ssh or sport = :ssh )'
+```
