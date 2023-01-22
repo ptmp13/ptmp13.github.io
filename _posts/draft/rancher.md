@@ -56,7 +56,7 @@ disable:
   - rke2-canal
   - rke2-kube-proxy
   - rke2-ingress-nginx
-node-name: poseidons01.ru-central1.internal
+node-name: poseidon01
 node-label:
   - "status=master"
 tls-san:
@@ -187,7 +187,7 @@ helm install cert-manager jetstack/cert-manager \
 
 helm install rancher rancher-latest/rancher \
   --namespace cattle-system \
-  --set hostname=51.250.97.147.sslip.io \
+  --set hostname=134.122.64.221.sslip.io \
   --set replicas=1 \
   --set bootstrapPassword=pfyxth \
   --version=2.7.0
@@ -207,6 +207,333 @@ vncserver :1
 ```
 
 
+### Mod nginx igress DaemonSet for specific host
+
+Label node:
+```bash
+kubectl label node poseidon-nginx ingress=nginx
+```
+
+Attach DaemonSet to node
+```bash
+kubectl edit ds -n kube-system rke2-ingress-nginx-controller
+#add to nodeSelector:
+# ingress=nginx
+```
+
+In deployment we have ports
+
+```yaml
+  - containerPort: 15021
+    protocol: TCP
+  - containerPort: 8080
+    protocol: TCP
+  - containerPort: 8443
+    protocol: TCP
+  - containerPort: 31400
+    protocol: TCP
+  - containerPort: 15443
+    protocol: TCP
+  - containerPort: 15090
+    name: http-envoy-prom
+    protocol: TCP
+```
+
+In service
+```yaml
+  - name: status-port
+    nodePort: 32714
+    port: 15021
+    protocol: TCP
+    targetPort: 15021
+  - name: http2
+    nodePort: 31380
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  - name: https
+    nodePort: 31390
+    port: 443
+    protocol: TCP
+    targetPort: 8443
+  - name: tcp
+    nodePort: 31400
+    port: 31400
+    protocol: TCP
+    targetPort: 31400
+  - name: tls
+    nodePort: 30368
+    port: 15443
+    protocol: TCP
+    targetPort: 15443
+```
+
+In generate file:
+```yaml
+            - containerPort: 15021
+              protocol: TCP
+            - containerPort: 8080
+              protocol: TCP
+            - containerPort: 8443
+              protocol: TCP
+            - containerPort: 15090
+              protocol: TCP
+              name: http-envoy-prom
+```
+
+
+```bash
+istioctl manifest generate > 1.yaml
+cd manifests/charts/gateways/istio-ingress
+helm template istio . --output-dir istio-manifests
+```
+
+
+Modify:
+  namespace: istio-system
+
+Ports to:
+  - containerPort: 15021
+    protocol: TCP
+  - containerPort: 8080
+    hostPort: 80
+    protocol: TCP
+  - containerPort: 8443
+    hostPort: 443
+    protocol: TCP
+  - containerPort: 31400
+    protocol: TCP
+  - containerPort: 15443
+    protocol: TCP
+  - containerPort: 15090
+    name: http-envoy-prom
+    protocol: TCP
++
+nodeAffinity
+
+Result Istio DaemonSet will be:
+```yaml
+---
+# Source: istio-ingress/templates/deployment.yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: istio-ingressgateway
+  namespace: istio-system
+  labels:
+    app: istio-ingressgateway
+    istio: ingressgateway
+    release: istio
+    istio.io/rev: default
+    install.operator.istio.io/owning-resource: unknown
+    operator.istio.io/component: "IngressGateways"
+spec:
+  selector:
+    matchLabels:
+      app: istio-ingressgateway
+      istio: ingressgateway
+  template:
+    metadata:
+      labels:
+        app: istio-ingressgateway
+        istio: ingressgateway
+        service.istio.io/canonical-name: istio-ingressgateway
+        service.istio.io/canonical-revision: latest
+        istio.io/rev: default
+        install.operator.istio.io/owning-resource: unknown
+        operator.istio.io/component: "IngressGateways"
+        sidecar.istio.io/inject: "false"
+      annotations:
+        prometheus.io/port: "15020"
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/stats/prometheus"
+        sidecar.istio.io/inject: "false"
+    spec:
+      securityContext:
+        runAsUser: 1337
+        runAsGroup: 1337
+        runAsNonRoot: true
+        fsGroup: 1337
+      serviceAccountName: istio-ingressgateway-service-account
+      containers:
+        - name: istio-proxy
+          image: "docker.io/istio/proxyv2:1.16.1"
+          ports:
+            - containerPort: 15021
+              protocol: TCP
+            - containerPort: 8080
+              hostPort: 80
+              protocol: TCP
+            - containerPort: 8443
+              hostPort: 443
+              protocol: TCP
+            - containerPort: 31400
+              protocol: TCP
+            - containerPort: 15443
+              protocol: TCP
+            - containerPort: 15090
+              name: http-envoy-prom
+              protocol: TCP
+          args:
+          - proxy
+          - router
+          - --domain
+          - $(POD_NAMESPACE).svc.cluster.local
+          - --proxyLogLevel=warning
+          - --proxyComponentLogLevel=misc:error
+          - --log_output_level=default:info
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          readinessProbe:
+            failureThreshold: 30
+            httpGet:
+              path: /healthz/ready
+              port: 15021
+              scheme: HTTP
+            initialDelaySeconds: 1
+            periodSeconds: 2
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 2000m
+              memory: 1024Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          env:
+          - name: JWT_POLICY
+            value: third-party-jwt
+          - name: PILOT_CERT_PROVIDER
+            value: istiod
+          - name: CA_ADDR
+            value: istiod.istio-system.svc:15012
+          - name: NODE_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: spec.nodeName
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.name
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          - name: INSTANCE_IP
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: status.podIP
+          - name: HOST_IP
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: status.hostIP
+          - name: SERVICE_ACCOUNT
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.serviceAccountName
+          - name: ISTIO_META_WORKLOAD_NAME
+            value: istio-ingressgateway
+          - name: ISTIO_META_OWNER
+            value: kubernetes://apis/apps/v1/namespaces/default/deployments/istio-ingressgateway
+          - name: ISTIO_META_MESH_ID
+            value: "cluster.local"
+          - name: TRUST_DOMAIN
+            value: "cluster.local"
+          - name: ISTIO_META_UNPRIVILEGED_POD
+            value: "true"
+          - name: ISTIO_META_CLUSTER_ID
+            value: "Kubernetes"
+          volumeMounts:
+          - name: workload-socket
+            mountPath: /var/run/secrets/workload-spiffe-uds
+          - name: credential-socket
+            mountPath: /var/run/secrets/credential-uds
+          - name: workload-certs
+            mountPath: /var/run/secrets/workload-spiffe-credentials
+          - name: istio-envoy
+            mountPath: /etc/istio/proxy
+          - name: config-volume
+            mountPath: /etc/istio/config
+          - mountPath: /var/run/secrets/istio
+            name: istiod-ca-cert
+          - name: istio-token
+            mountPath: /var/run/secrets/tokens
+            readOnly: true
+          - mountPath: /var/lib/istio/data
+            name: istio-data
+          - name: podinfo
+            mountPath: /etc/istio/pod
+          - name: ingressgateway-certs
+            mountPath: "/etc/istio/ingressgateway-certs"
+            readOnly: true
+          - name: ingressgateway-ca-certs
+            mountPath: "/etc/istio/ingressgateway-ca-certs"
+            readOnly: true
+      volumes:
+      - emptyDir: {}
+        name: workload-socket
+      - emptyDir: {}
+        name: credential-socket
+      - emptyDir: {}
+        name: workload-certs
+      - name: istiod-ca-cert
+        configMap:
+          name: istio-ca-root-cert
+      - name: podinfo
+        downwardAPI:
+          items:
+            - path: "labels"
+              fieldRef:
+                fieldPath: metadata.labels
+            - path: "annotations"
+              fieldRef:
+                fieldPath: metadata.annotations
+      - name: istio-envoy
+        emptyDir: {}
+      - name: istio-data
+        emptyDir: {}
+      - name: istio-token
+        projected:
+          sources:
+          - serviceAccountToken:
+              path: istio-token
+              expirationSeconds: 43200
+              audience: istio-ca
+      - name: config-volume
+        configMap:
+          name: istio
+          optional: true
+      - name: ingressgateway-certs
+        secret:
+          secretName: "istio-ingressgateway-certs"
+          optional: true
+      - name: ingressgateway-ca-certs
+        secret:
+          secretName: "istio-ingressgateway-ca-certs"
+          optional: true
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution: 
+                nodeSelectorTerms:
+                - matchExpressions:
+                  - key: ingress
+                    operator: In
+                    values:
+                    - istio
+          preferredDuringSchedulingIgnoredDuringExecution:
+```
+
 
 ### Remove ALL
 
@@ -217,6 +544,7 @@ rm -rf /run/k3s
 # Reset Password
 
 kubectl --kubeconfig $KUBECONFIG -n cattle-system exec $(kubectl --kubeconfig $KUBECONFIG -n cattle-system get pods -l app=rancher | grep '1/1' | head -1 | awk '{ print $1 }') -- reset-password
+
 
 
 PS:
@@ -230,3 +558,21 @@ openssl get pass: 0u6FJwogGu3JPbjxYrSg
             - NET_BIND_SERVICE
             drop:
             - ALL
+
+
+
+=======
+10.80.130.31 rancher-server-1
+10.80.130.32 rancher-server-2
+10.80.130.33 rancher-agent-1
+10.80.130.34 rancher-vip-1
+
+ 
+
+https://10.80.130.31:9090/
+https://10.80.130.32:9090/
+https://10.80.130.33:9090/
+
+ 
+
+root/стандартный пароль как у oracle
