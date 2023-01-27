@@ -63,4 +63,16 @@ its mean exclude __node3__, becouse when shard move from one node to another in 
 ```bash
 curl -XPOST ${elasticURL}/my_datastream/_disk_usage?run_expensive_tasks=true
 ```
+
+#### Datastream size across cluster
+
+```bash
+curl -XPOST ${elasticURL}/_data_stream/_stats
+```
+
+Get command for del empty Datastreams
+```bash
+curl -XGET ${elasticURL}/_data_stream/_stats -u elastic:OLOLOL|jq '.data_streams|.[]|select(.maximum_timestamp==0)|.data_stream'|tr -d '"'|awk '{print "DELETE _data_stream/"$1}'
+```
+
 [elasticsearch docs](https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-disk-usage.html)
