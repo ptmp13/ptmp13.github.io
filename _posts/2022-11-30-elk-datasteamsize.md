@@ -47,7 +47,7 @@ grep ${elasticNode}
 export elasticURL=https://olol.elasticsearch.com:9200
 export elasticCRED=elastic:passwd
 export elasticNode=data-1
-curl -N -k -XGET "${elasticURL}/_cat/shards?h=i,sto,n&bytes=b' \
+curl -N -k -XGET "${elasticURL}/_cat/shards?h=i,sto,n&bytes=b" \
 -u ${elasticCRED}|tac|grep ${elasticNode}|grep "\.ds-"|\
 gawk -v OFMT='%.5f' \
 '{sub(/-[^-]*-[^-]*$/,"",$1); a[$1]+=$2;} \
