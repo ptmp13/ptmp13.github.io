@@ -51,15 +51,20 @@ lsns --output NS,TYPE,PID,COMMAND|grep 3932
 # OR
 ps -e -o pid,netns,ipcns,mntns,pidns,userns,utsns,comm,user |grep 3932
 
-# OR for network
-ip netns identify 3707
-cni-af645ffa-2dcf-10ce-0a8d-b6f970f7c235
+# OR
+ll /proc/3932/ns
 ```
 
 4. Get iptables rules for this
 
 Lol this pid does not have network namespace.
 But there must be
+Identify namespace:
+```bash
+# OR for network
+ip netns identify 3707
+cni-af645ffa-2dcf-10ce-0a8d-b6f970f7c235
+```
 ```bash
 ip netns exec cni-af645ffa-2dcf-10ce-0a8d-b6f970f7c235 iptables -t nat -n -L
 ```
