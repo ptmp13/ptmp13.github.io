@@ -42,6 +42,7 @@ We see some info about container
 ```
 
 3. Get namespace for pid 3932
+
 ```bash
 lsns --output NS,TYPE,PID,COMMAND|grep 3932
 4026532826 mnt     3932 /pause
@@ -116,4 +117,5 @@ ip netns exec myns1 ping 10.1.1.3
 
 P.S
 [How to Create a Network Namespace and add iptables rules and Test it](https://fosshelp.blogspot.com/2014/07/create-network-namespace-iptables-rules.html)
+[Good things](https://windsock.io/a-basic-container/)
 
