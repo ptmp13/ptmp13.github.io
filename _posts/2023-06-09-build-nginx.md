@@ -102,7 +102,7 @@ ls -la
 ./configure %{BASE_CONFIGURE_ARGS} \
     --with-cc-opt="%{WITH_CC_OPT}" \
     --with-ld-opt="%{WITH_LD_OPT}" \
-    --add-dynamic-module=./ngx_http_proxy_connect_module \
+    --add-module=./ngx_http_proxy_connect_module \
     --with-debug
 ```
 
