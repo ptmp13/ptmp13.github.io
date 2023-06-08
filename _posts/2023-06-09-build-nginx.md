@@ -110,7 +110,5 @@ ls -la
 
 ## My links
 
-https://build.opensuse.org/package/show/home:ptmp13/nginx
-
-
-![img](/img/in-post/post-alitrip-pd/post-alitrip-pd.031.jpg)
+[OpenSuse build Service PTMP13](https://build.opensuse.org/package/show/home:ptmp13/nginx)
+[https://github.com/ptmp13/openSuseBuildService_nginx](https://github.com/ptmp13/openSuseBuildService_nginx)
