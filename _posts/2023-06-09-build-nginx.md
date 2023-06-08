@@ -60,7 +60,7 @@ rpm2cpio nginx.src.rpm|cpio -idcmv
 ### Upload additional module to OpenSuse build Service
 
 Что бы докинуть модули нужны сами модули на примере
-https://github.com/chobits/ngx_http_proxy_connect_module
+[https://github.com/chobits/ngx_http_proxy_connect_module](https://github.com/chobits/ngx_http_proxy_connect_module)
 
 мы можем качнуть репу через
 ```bash
