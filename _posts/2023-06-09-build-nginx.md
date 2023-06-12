@@ -59,7 +59,7 @@ rpm2cpio nginx.src.rpm|cpio -idcmv
 Так же вы можете выбрать список дитрибутивов для которых хотите собирать. Делается это на странице:
 
 
-https://build.opensuse.org/projects/home:<USERNAME>/distributions/new
+[https://build.opensuse.org/projects/home:USERNAME/distributions/new](https://build.opensuse.org/projects/home:USERNAME/distributions/new)
 (Вместо USERNAME - подставить имя вашего пользователя)
 
 
