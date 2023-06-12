@@ -133,4 +133,7 @@ strings /usr/sbin/nginx|grep _module|grep -v configure| sort
 
 ## Lifehack
 
-Нужно собирать в идеале для CentOS7 тк для RHEL7 ни фига пакетов может не быть...
+Для RHEL7 могут отсутствовать некоторые пакеты и может быть ошибка unresolvable как на скриншоте ниже. Поэтому лучше выбирать для сборки CentOS7
+
+![img](/img/openSuse-build/SCR-20230612-mizb.png)
+
