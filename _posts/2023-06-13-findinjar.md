@@ -18,4 +18,4 @@ find . -name '*.jar' -type f -exec bash -c 'jar tvf {} | LC_ALL=C grep "ConfigSe
 ```bash
 find . -name '*.jar' -print  -exec /opt/oracle/java/latest/bin/jar tf {} \;|grep lalal
 find . -name '*.jar' -print -exec /opt/oracle/java/latest/bin/jar tf {} \; > list_content_jar.txt
-```bash
+```
