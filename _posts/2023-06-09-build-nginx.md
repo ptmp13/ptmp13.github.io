@@ -17,6 +17,8 @@ tags:
 Я не знаю как билдить что-то универсальное поэтому будем отталкиваться от имеющейся проблемы.
 А именно нам нужен nginx для RHEL7
 
+[![build result](https://build.opensuse.org/projects/home:ptmp13/packages/nginx/badge.svg?type=default)](https://build.opensuse.org/package/show/home:ptmp13/nginx)
+
 ### Загрузка необходимых вещей
 
 Cкачаваем src rpm для нужного нам дистрибутива, в нашем случае:
