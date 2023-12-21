@@ -285,6 +285,18 @@ vault operator unseal
 # Key from node TWO
 ```
 
+### Check
+
+```bash
+export VAULT_ADDR='https://vault3.tmp.local:8200'
+export VAULT_CACERT=/opt/vault/certs/withca/rootCA.crt
+vault operator raft list-peers
+Node          Address                  State       Voter
+----          -------                  -----       -----
+oadmintst2    vault2.tmp.local:8201    follower    true
+oadmintst3    vault3.tmp.local:8201    leader      true
+```
+там я переключил leader на vault3 не парьтесь у вас должен быть vault2 лидером
 
 
 #### !Addon! Join to "Node TWO"
