@@ -192,29 +192,6 @@ vault operator rekey
 #Operation nonce: 939cd1b9-7b23-5bb0-a8e8-2311a1af8937
 ```
 
-Вообщем типа мы расcолили чет наковыряли проверяем
-```bash
-vault status
-Key                     Value
----                     -----
-Seal Type               shamir
-Initialized             true
-Sealed                  false
-Total Shares            1
-Threshold               1
-Version                 1.12.0
-Build Date              2022-10-10T18:14:33Z
-Storage Type            raft
-Cluster Name            vault-tmp
-Cluster ID              78c82cd4-5ce1-0ca6-4849-6e7c5a5822fb
-HA Enabled              true
-HA Cluster              https://127.0.0.2:8201
-HA Mode                 active
-Active Since            2023-12-19T13:32:08.100662208Z
-Raft Committed Index    56
-Raft Applied Index      56
-```
-
 ### Unseal
 
 ```bash
@@ -318,7 +295,7 @@ __retry_join__
 
 Node TWO - это которая первая=)
 ```bash
-vault operator raft join "http://127.0.0.2:8200" \
+vault operator raft join "http://vault2.tmp.local:8200" \
         -leader-ca-cert=@rootCA.crt \
         -leader-client-cert=@vault.crt \
         -leader-client-key=@vault_nopass.key
