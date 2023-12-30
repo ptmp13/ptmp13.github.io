@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Vault ha raft storage..."
+title:      "Vault ha (raft storage)..."
 subtitle:   " \"...\""
 date:       2023-12-17 20:49:00
 author:     "ptmp13"
