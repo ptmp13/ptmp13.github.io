@@ -365,4 +365,4 @@ do
 done
 ```
 
-P.S Чет задолбался писать пока хватит пожалуй развлечений...
+P.S Чет задолбался писать пока хватит пожалуй развлечений...P.P.S На самом деле там в конфиге сервера ясен хрен писать в retry_join саму ноду не надо просто оставил что бы конфиг был однотипный для всех нод. В иделае надо конечно делать нормально... Типа для каждого ноды должны быть описанны только ноды к которым она джойнится в нашем случаем одна. Т.е для vault3:```hcl  retry_join {    leader_api_addr = "https://vault2.tmp.local:8200"    leader_ca_cert_file = "/opt/vault/certs/withca/rootCA.crt"    leader_client_cert_file = "/opt/vault/certs/withca/vault.crt"    leader_client_key_file = "/opt/vault/certs/withca/vault_nopass.key"  }```
