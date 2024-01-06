@@ -274,14 +274,34 @@ disable_mlock=true
 Запускаем это чудо:
 ```bash
 vault server -config=./server-3.hcl
+vault status
+Key                Value
+---                -----
+Seal Type          shamir
+Initialized        true
+Sealed             true
+Total Shares       1
+Threshold          1
+Unseal Progress    0/1
+Unseal Nonce       n/a
+Version            1.15.4
+Build Date         2023-12-04T17:45:28Z
+Storage Type       raft
+HA Enabled         true
 ```
 
-Init и unseal
+Если на этом этапе все сделано правильно то мы типа видим
+__Initialized        true__
+__Sealed             true__
+
+Т.е vault уже инициализирован и нам надо его только рассолить
+
+### 
 
 ```bash
 export VAULT_ADDR='https://vault3.tmp.local:8200'
 export VAULT_CACERT=/opt/vault/certs/withca/rootCA.crt
-vault operator unseal
+vault operator unseal  # USING UNSEAL KEY FROM VAULT2 NODE
 # Key from node TWO
 ```
 
@@ -306,38 +326,22 @@ __retry_join__
 то можно вручную заджойнится 2мя командами 
 
 Node TWO - это которая первая=)
-```bash
-vault operator raft join "http://vault2.tmp.local:8200" \
-        -leader-ca-cert=@rootCA.crt \
-        -leader-client-cert=@vault.crt \
-        -leader-client-key=@vault_nopass.key
-Key       Value
----       -----
-Joined    true
-```
 
-Или curl
+curl
 Делаем payload.json вида
 ```bash
-cat rootCA.crt | awk '{printf $0"\\n"}' # leader_ca_cert
-cat vault.crt | awk '{printf $0"\\n"}' # leader_client_cert
-cat vault_nopass.key | awk '{printf $0"\\n"}' # leader_client_key
-```
-Дальше соответсвующий вывод засовываем в payload
-```json
-{
-  "leader_api_addr": "https://vault2.tmp.local:8200",
-  "leader_ca_cert": "-----BEGIN CERTIFICATE-----\nMIIDyTCCArGgAwIBAgIUOPbrZV7GBocQ5R7Om5UTHJjWk40wDQYJKoZIhvcNAQEL\nBQAwg==\n-----END CERTIFICATE-----",
-  "leader_client_cert": "-----BEGIN CERTIFICATE-----\nMIIEfTCCA2WgAwIBAgIUFs4EIHaueXohyfCR4fBRfMCXguowDQYJKoZIhvcNAQEL\nBQvEsOPmJ0N/I\nSw==\n-----END CERTIFICATE-----",
-  "leader_client_key": "-----BEGIN RSA PRIVATE KEY-----\nMIIJKgIBAAKCAgEA0kJnoFo+Pzw5PLEY1RJV+QlfHUNfhbLKI/Ttn8xE4f6MswJh\nBin4kEdHiQbK+bGvW2m4LlilQ==\n-----END RSA PRIVATE KEY-----"
-}
-```
+export ROOTCA=$(cat rootCA.crt | awk '{printf $0"\\n"}'| sed "s/.\{0,2\}$//; /^$/d") # leader_ca_cert
+export VAULTCERT=$(cat vault.crt | awk '{printf $0"\\n"}'| sed "s/.\{0,2\}$//; /^$/d") # leader_client_cert
+export VAULTKEY=$(cat vault_nopass.key | awk '{printf $0"\\n"}'| sed "s/.\{0,2\}$//; /^$/d") # leader_client_key
 
-```bash
 curl \
 --request POST \
---data @payload.json \
-https://vault3.tmp.local:8200/v1/sys/storage/raft/join
+https://vault3.tmp.local:8200/v1/sys/storage/raft/join -d '{
+  "leader_api_addr": "https://vault2.tmp.local:8200",
+  "leader_ca_cert": "'"$ROOTCA"'",
+  "leader_client_cert": "'"$VAULTCERT"'",
+  "leader_client_key": "'"$VAULTKEY"'"
+}'
 ```
 
 ### Auto unseal
@@ -365,4 +369,27 @@ do
 done
 ```
 
-P.S Чет задолбался писать пока хватит пожалуй развлечений...P.P.S На самом деле там в конфиге сервера ясен хрен писать в retry_join саму ноду не надо просто оставил что бы конфиг был однотипный для всех нод. В иделае надо конечно делать нормально... Типа для каждого ноды должны быть описанны только ноды к которым она джойнится в нашем случаем одна. Т.е для vault3:```hcl  retry_join {    leader_api_addr = "https://vault2.tmp.local:8200"    leader_ca_cert_file = "/opt/vault/certs/withca/rootCA.crt"    leader_client_cert_file = "/opt/vault/certs/withca/vault.crt"    leader_client_key_file = "/opt/vault/certs/withca/vault_nopass.key"  }```
+P.S Чет задолбался писать пока хватит пожалуй развлечений...
+
+P.P.S На самом деле там в конфиге сервера ясен хрен писать в retry_join саму ноду не надо просто оставил что бы конфиг был однотипный для всех нод. В иделае надо конечно делать нормально... 
+Типа для каждого ноды должны быть описанны только ноды к которым она джойнится в нашем случаем одна. Т.е для vault3:
+```hcl
+  retry_join {
+    leader_api_addr = "https://vault2.tmp.local:8200"
+    leader_ca_cert_file = "/opt/vault/certs/withca/rootCA.crt"
+    leader_client_cert_file = "/opt/vault/certs/withca/vault.crt"
+    leader_client_key_file = "/opt/vault/certs/withca/vault_nopass.key"
+  }
+```
+
+P.P.S Not work...
+Вот это говно которое в доке вообще не работает!....
+```bash
+vault operator raft join "http://vault2.tmp.local:8200" \
+        -leader-ca-cert=@rootCA.crt \
+        -leader-client-cert=@vault.crt \
+        -leader-client-key=@vault_nopass.key
+Key       Value
+---       -----
+Joined    true
+```
