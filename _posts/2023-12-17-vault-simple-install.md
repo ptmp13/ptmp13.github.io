@@ -291,12 +291,12 @@ HA Enabled         true
 ```
 
 Если на этом этапе все сделано правильно то мы типа видим
-__Initialized        true__
+__Initialized        true__  
 __Sealed             true__
 
 Т.е vault уже инициализирован и нам надо его только рассолить
 
-### 
+### Unseal
 
 ```bash
 export VAULT_ADDR='https://vault3.tmp.local:8200'
