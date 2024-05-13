@@ -286,14 +286,14 @@ package-app:
 ```
 
 Видимо что не смотря на то что кэши не собиралась все хорошо
-![img](/img/in-post/GitLabCache/SCR-20240513-kkrd.png)
+![img](/img/in-post/GitlabCache/SCR-20240513-kkrd.png)
 
 В логе джоба можно в целом увидеть что кэш для dev ветки не найден, и соответствено был звят кэш из ветки master (напомню что для этого надо s3 хранилище)
-![img](/img/in-post/GitLabCache/SCR-20240513-kqfy.png)
+![img](/img/in-post/GitlabCache/SCR-20240513-kqfy.png)
 
 Попробуем поправить файл _my-referent-file.lock_ в __dev__ ветке собственнааа для того что бы собрался отдельный кэш для этой ветки (я просто добавил туда пару строк)... пушим... смотрим результат:
 
-![img](/img/in-post/GitLabCache/SCR-20240513-ktgd.png)
+![img](/img/in-post/GitlabCache/SCR-20240513-ktgd.png)
 
 ## P.S.
 
