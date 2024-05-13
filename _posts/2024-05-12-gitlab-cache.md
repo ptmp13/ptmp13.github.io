@@ -2,7 +2,7 @@
 layout:     post
 title:      "Gitlab Cache..."
 subtitle:   " \"... some thing about cache ... \""
-date:       2022-11-28 20:49:00
+date:       2024-05-13 12:10:00
 author:     "ptmp13"
 catalog: true
 tags:
