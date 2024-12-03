@@ -55,6 +55,9 @@ _Next_
 
 Тут указывем URL с которого мы будем "заходить" например http://lol.corp.local  
 
+В целом Valid RedirectURL можно указать тот который мы бум юзать:
+http://lol.corp.local/restricted (если явно этого не сделать он автоматом саданет туда * типа http://lol.corp.local/*)
+
 ![img](/img/in-post/http-keycloak/CreateClient-3.png)
 
 _Save_
@@ -73,6 +76,7 @@ _Save_
 Самый простой вариант закидываем куда нить в __conf.d__ конфиг вида
 
 ```apacheconf
+    ...
     OIDCProviderMetadataURL http://trolol.corp.local:8080/realms/TestRealm/.well-known/openid-configuration
     OIDCClientID httpd-test
     OIDCClientSecret tC2YAYkxk1VHI6D0EAUrYYYcagvZmosT
@@ -89,15 +93,18 @@ _Save_
         AuthType openid-connect
         Require claim read_restricted:true
     </Location>
+    ...
 ```
 
 Соответственно что бы "прикрыть" location
 
 ```apacheconf
+    ...
     <Location "/azaz">
         AuthType openid-connect
         Require valid-user
     </Location>
+    ...
 ```
 
 Чет надоело писать потом допишу еще че нить...
