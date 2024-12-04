@@ -58,6 +58,8 @@ _Next_
 В целом Valid RedirectURL можно указать тот который мы бум юзать:
 http://lol.corp.local/restricted (если явно этого не сделать он автоматом саданет туда * типа http://lol.corp.local/*)
 
+В целом Root URL можно не указывать, а указываьт только Valid RedirectURL. Root URL нужен если мы будем, например, в Valid RedirectURL использовать относительные пути.
+
 ![img](/img/in-post/http-keycloak/CreateClient-3.png)
 
 _Save_
