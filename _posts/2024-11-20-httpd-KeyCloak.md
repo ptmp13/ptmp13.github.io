@@ -53,7 +53,7 @@ _Next_
 
 _Next_
 
-Тут указывем URL с которого мы будем "заходить" например http://lol.corp.local  
+Тут указывем URL с которого мы будем "заходить" например http://lol.corp.local
 
 В целом Valid RedirectURL можно указать тот который мы бум юзать:
 http://lol.corp.local/restricted (если явно этого не сделать он автоматом саданет туда * типа http://lol.corp.local/*)
@@ -78,6 +78,7 @@ _Save_
 Самый простой вариант закидываем куда нить в __conf.d__ конфиг вида
 
 ```apacheconf
+    ServerName lol.corp.local
     ...
     OIDCProviderMetadataURL http://trolol.corp.local:8080/realms/TestRealm/.well-known/openid-configuration
     OIDCClientID httpd-test
@@ -98,6 +99,11 @@ _Save_
     ...
 ```
 
+Ну тут надо че собственно знать что у нас 
+__ServerName lol.corp.local__ + __OIDCRedirectURI /restricted__
+Соответствнено помним что __Valid RedirectURL__ в keycloak у нас будет типа 
+__http://lol.corp.local/restricted__
+
 Соответственно что бы "прикрыть" location
 
 ```apacheconf
@@ -108,5 +114,21 @@ _Save_
     </Location>
     ...
 ```
+
+### Check token info
+
+Ну вот приперлись мы на какой нить location в нашем случае это _/azaz_  
+Соответственно мы получим страницу с просьбой ввести логин/пароль... далее чтобы проверить инфо о "нас" нужно добавить хук типа
+
+```apacheconf
+OIDCInfoHook iat access_token access_token_expires id_token userinfo
+```
+
+Далее можно будет зайти на 
+__http://lol.corp.local/restricted?info=json__
+
+И получить некую информацию... о токене и тд. от скуки накидал страницу что бы "парсило" + не надо было переходить после аутентификации на какую то страницу еще
+
+[https://github.com/ptmp13/showme](https://github.com/ptmp13/showme)
 
 Чет надоело писать потом допишу еще че нить...
