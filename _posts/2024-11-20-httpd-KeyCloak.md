@@ -131,4 +131,45 @@ __http://lol.corp.local/restricted?info=json__
 
 [https://github.com/ptmp13/showme](https://github.com/ptmp13/showme)
 
+### Final config httpd
+
+```apacheconf
+ServerName ${VIRTHOSTNAME}
+
+<VirtualHost *:443>
+    ServerName ${VIRTHOSTNAME}
+
+    SSLEngine on
+    SSLProtocol -ALL +TLSv1.2
+    SSLCipherSuite "HIGH:MEDIUM:!aNULL:!MD5:!SEED:!IDEA:!RC4"
+    SSLCertificateFile /usr/local/apache2/ssl/server.crt
+    SSLCertificateKeyFile /usr/local/apache2/ssl/server.key
+    SSLCACertificateFile /usr/local/apache2/ssl/ca.crt
+    SSLOptions +ExportCertData
+    BrowserMatch "MSIE [2-5]" \
+     nokeepalive ssl-unclean-shutdown \
+     downgrade-1.0 force-response-1.0
+
+    OIDCProviderMetadataURL https://trolol.corp.local:8080/realms/TestRealm/.well-known/openid-configuration
+    OIDCClientID httpd-test
+    OIDCClientSecret tC2YAYkxk1VHI6D0EAUrYYYcagvZmosT
+    OIDCProviderTokenEndpointAuth client_secret_basic
+    OIDCRedirectURI /restricted
+    OIDCCryptoPassphrase OLOLOL
+    OIDCRemoteUserClaim preferred_username
+    OIDCCABundlePath /usr/local/apache2/ssl/ca-root2.pem
+    OIDCInfoHook iat access_token access_token_expires id_token userinfo
+
+    <Location /restricted>
+        AuthType openid-connect
+        Require valid-user
+    </Location>
+
+    <Location "/showme">
+        AuthType openid-connect
+        Require valid-user
+    </Location>
+</VirtualHost>
+```
+
 Чет надоело писать потом допишу еще че нить...
