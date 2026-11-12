@@ -36,6 +36,36 @@ export RULES_FILE="/opt/trololo.yaml"
 export KIBANAURL=http://192.168.97.11:5601
 ```
 
+__ES_INDEX__ - эт индекс куда мы будем складывать алерты (ниже будет)  
+__ES_API_KEY__ - apikey c необходимыми правами типа:  
+
+```json
+{
+  "write-only-role": {
+    "cluster": [],
+    "indices": [
+      {
+        "names": [
+          "telegaalert"
+        ],
+        "privileges": [
+          "read",
+          "write",
+          "maintenance"
+        ],
+        "allow_restricted_indices": false
+      }
+    ],
+    "applications": [],
+    "run_as": [],
+    "metadata": {},
+    "transient_metadata": {
+      "enabled": true
+    }
+  }
+}
+```
+
 Так же я накидал некий темплейтинг дескать че бум высирать в алерте:
 
 {% raw %}
