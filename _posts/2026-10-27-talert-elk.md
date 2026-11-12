@@ -23,7 +23,7 @@ tags:
 ### Наш вайбговнокод на go
 
 Вообщем тут особо не ча распыляться я сложил эт чудо сюда:
-https://github.com/ptmp13/TBotKibanaLogs
+[github](https://github.com/ptmp13/TBotKibanaLogs)
 
 Ему надо несколько переменных окружения:
 ```bash
