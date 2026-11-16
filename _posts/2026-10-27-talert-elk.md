@@ -178,9 +178,9 @@ json собстна (хуй знает может тут столько и не 
 ```json
 {
   "rule_name": "{{rule.name}}",
-  "context_message": "{{context.message}}",
+  "context_message": "Count of all document in 'logs-*': {{context.value}}",
   "SpaceID": "{{rule.spaceId}}",
-  "link": "{{context.link}}",
+  "link": "{{context.alertDetailsUrl}}",
   "status": "{{alert.actionGroup}}",
   "tsend": "false"
 }
@@ -197,7 +197,7 @@ __link__ - тут можно вкарячить че нить свое ссыл�
 ```json
 {
   "rule_name": "{{rule.name}}",
-  "context_message": "{{context.message}}",
+  "context_message": "Count of all document in 'logs-*': {{context.value}}",
   "SpaceID": "{{rule.spaceId}}",
   "status": "recovered",
   "tsend": "false"
