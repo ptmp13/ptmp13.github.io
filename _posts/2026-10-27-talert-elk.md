@@ -212,5 +212,35 @@ __link__ - тут можно вкарячить че нить свое ссыл�
 Я тут пишу все эт для теста на самом деле эту штуку с алертами надо автоматизировать и добавлять терраформом.  
 Потому что понятно что копировать эту ебанину в каждое правило будет всем в падлу... а вот пулять терраформ где можно шаблонизировать   часть этого говна, гораздо проще.  
 
+### context_message
+
+Если вы задали тип скажем esql
+
+
+```esql
+FROM vector-internal-logs
+  | WHERE error LIKE "* unable to parse json*"
+  | WHERE @timestamp > NOW() - 1 min
+  | STATS count = COUNT()
+        BY vector.component_id.keyword, host.hostname.keyword
+```
+
+вы получили результат типа
+
+![img](/img/in-post/KibanaAlerts/query1.png)
+
+Дальше в алерте хочется видеть всю эту инфу соответственно _context_message_ будет выглядть так:
+{% raw %}
+```json
+  "context_message": """
+    {{#context.hits}}
+      Count of errors in {{_source.vector.component_id.keyword}}: {{_source.count}}
+    {{/context.hits}}
+  """
+```
+{% endraw %}
+
+т.е через "_source": можно обратится к каким либо полям в результате запроса.
+
 Короче заебало чет писать... потом допишу... когда настроение будет...  
 Да и в целом хули я все дописал почти..  
